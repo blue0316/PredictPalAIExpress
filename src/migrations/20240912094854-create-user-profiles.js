@@ -3,21 +3,21 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("UserProfiles", {
-      uid: {
+      User_ID: {
         type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
         unique: true,
       },
-      name: {
+      Name: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      phone: {
+      Phone: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      email: {
+      Email: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
@@ -25,31 +25,31 @@ module.exports = {
           isEmail: true,
         },
       },
-      dob: {
+      DOB: {
         type: Sequelize.DATEONLY,
         allowNull: true,
       },
-      country: {
+      Country: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      city: {
+      City: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      address: {
+      Address: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      postalCode: {
+      PostalCode: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      bio: {
+      Bio: {
         type: Sequelize.TEXT,
         allowNull: true,
       },
-      setting: {
+      Setting: {
         type: Sequelize.JSON,
         allowNull: true,
       },

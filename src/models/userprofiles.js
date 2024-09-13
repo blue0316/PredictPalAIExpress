@@ -9,25 +9,30 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      UserProfiles.hasMany(models.PaymentMethods, {
+        foreignKey: "User_ID",
+        sourceKey: "User_ID",
+        as: "PaymentMethods",
+      });
     }
   }
   UserProfiles.init(
     {
-      uid: {
+      User_ID: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
         unique: true,
       },
-      name: {
+      Name: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      phone: {
+      Phone: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      email: {
+      Email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
@@ -35,31 +40,31 @@ module.exports = (sequelize, DataTypes) => {
           isEmail: true,
         },
       },
-      dob: {
+      DOB: {
         type: DataTypes.DATEONLY,
         allowNull: true,
       },
-      country: {
+      Country: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      city: {
+      City: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      address: {
+      Address: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      postalCode: {
+      PostalCode: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      bio: {
+      Bio: {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      setting: {
+      Setting: {
         type: DataTypes.JSON,
         allowNull: true,
       },

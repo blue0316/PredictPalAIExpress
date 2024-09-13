@@ -26,7 +26,7 @@ exports.getAllUserProfiles = async (req, res) => {
 
     const condition = keyword
       ? {
-          [Op.or]: [{ name: { [Op.like]: `%${keyword}%` } }],
+          [Op.or]: [{ Name: { [Op.like]: `%${keyword}%` } }],
         }
       : null;
 
@@ -35,10 +35,20 @@ exports.getAllUserProfiles = async (req, res) => {
       limit: limit,
       offset: offset,
       distinct: true,
-      order: [["name", "ASC"]],
+      order: [["Name", "ASC"]],
     });
 
-    return successResponse(req, res, userProfiles, 200);
+    return successResponse(
+      req,
+      res,
+      {
+        totalItems: userProfiles.count,
+        data: userProfiles.rows,
+        totalPages: Math.ceil(userProfiles.count / limit),
+        currentPage: page ? +page : 1,
+      },
+      200
+    );
   } catch (err) {
     return errorResponse(req, res, "Error fetching user profiles", 500, err);
   }
@@ -47,9 +57,7 @@ exports.getAllUserProfiles = async (req, res) => {
 // Get a UserProfile by UID
 exports.getUserProfileByUid = async (req, res) => {
   try {
-    const userProfile = await UserProfiles.findOne({
-      where: { uid: req.params.uid },
-    });
+    const userProfile = await UserProfiles.findByPk(req.params.uid);
     if (!userProfile) {
       return res.status(404).json({ message: "User profile not found" });
     }

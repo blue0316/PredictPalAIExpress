@@ -1,17 +1,17 @@
 const Joi = require("joi");
 
 const userProfileSchema = Joi.object({
-  uid: Joi.string().required(),
-  name: Joi.string().optional(),
-  phone: Joi.string().optional(),
-  email: Joi.string().email().required(),
-  dob: Joi.date().optional(),
-  country: Joi.string().optional(),
-  city: Joi.string().optional(),
-  address: Joi.string().optional(),
-  postalCode: Joi.string().optional(),
-  bio: Joi.string().optional(),
-  setting: Joi.object().optional(),
+  User_ID: Joi.string().required(),
+  Name: Joi.string().optional(),
+  Phone: Joi.string().optional(),
+  Email: Joi.string().email().required(),
+  DOB: Joi.date().optional(),
+  Country: Joi.string().optional(),
+  City: Joi.string().optional(),
+  Address: Joi.string().optional(),
+  PostalCode: Joi.string().optional(),
+  Bio: Joi.string().optional(),
+  Setting: Joi.object().optional(),
 });
 
 module.exports = { userProfileSchema };

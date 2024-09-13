@@ -35,6 +35,10 @@ app.use(
 );
 app.use(bodyParser.json());
 
+app.get("/", (req, res) => {
+  res.send("Hello, world! Here is PredictPalAI");
+});
+
 app.use("/api", apiRoutes);
 
 app.post("/api/upload", upload.array("files"), (req, res) => {

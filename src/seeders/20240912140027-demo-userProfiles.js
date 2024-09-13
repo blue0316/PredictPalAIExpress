@@ -1,23 +1,29 @@
 "use strict";
 const { faker } = require("@faker-js/faker");
+const { Country, City } = require("country-state-city");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     const fakeUserProfiles = [];
 
     for (let i = 0; i < 50; i++) {
+      const country = faker.helpers.arrayElement(Country.getAllCountries());
+      const cities = City.getCitiesOfCountry(country.isoCode);
+      const city =
+        cities.length > 0 ? faker.helpers.arrayElement(cities) : null;
+        
       fakeUserProfiles.push({
-        uid: faker.string.uuid(),
-        name: faker.person.fullName(),
-        phone: faker.phone.number().split(" x")[0],
-        email: faker.internet.email(),
-        dob: faker.date.birthdate(),
-        country: faker.location.country(),
-        city: faker.location.city(),
-        address: faker.location.streetAddress(),
-        postalCode: faker.location.zipCode(),
-        bio: faker.lorem.paragraphs(2),
-        setting: JSON.stringify({
+        User_ID: faker.string.uuid(),
+        Name: faker.person.fullName(),
+        Phone: faker.phone.number().split(" x")[0],
+        Email: faker.internet.email(),
+        DOB: faker.date.birthdate(),
+        Country: country.name,
+        City: city?.name || null,
+        Address: faker.location.streetAddress(),
+        PostalCode: faker.location.zipCode(),
+        Bio: faker.lorem.paragraphs(2),
+        Setting: JSON.stringify({
           theme: faker.helpers.arrayElement(["light", "dark"]),
           rtl: false,
           font_size: faker.helpers.arrayElement(
