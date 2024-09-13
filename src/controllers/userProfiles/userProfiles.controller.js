@@ -1,12 +1,15 @@
 const { Op } = require("sequelize");
 const { successResponse, errorResponse } = require("../../helpers");
 const { UserProfiles } = require("../../models");
-const { userProfileSchema } = require("./userProfiles.validator");
+const {
+  createUserProfileSchema,
+  updateUserProfileSchema,
+} = require("./userProfiles.validator");
 
 // Create a new UserProfile
 exports.createUserProfile = async (req, res) => {
   try {
-    const { error } = userProfileSchema.validate(req.body);
+    const { error } = createUserProfileSchema.validate(req.body);
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
     }
@@ -70,14 +73,12 @@ exports.getUserProfileByUid = async (req, res) => {
 // Update a UserProfile
 exports.updateUserProfile = async (req, res) => {
   try {
-    const { error } = userProfileSchema.validate(req.body);
+    const { error } = updateUserProfileSchema.validate(req.body);
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
     }
 
-    const userProfile = await UserProfiles.findOne({
-      where: { uid: req.params.uid },
-    });
+    const userProfile = await UserProfiles.findByPk(req.params.uid);
     if (!userProfile) {
       return res.status(404).json({ message: "User profile not found" });
     }
@@ -92,9 +93,7 @@ exports.updateUserProfile = async (req, res) => {
 // Delete a UserProfile
 exports.deleteUserProfile = async (req, res) => {
   try {
-    const userProfile = await UserProfiles.findOne({
-      where: { uid: req.params.uid },
-    });
+    const userProfile = await UserProfiles.findByPk(req.params.uid);
     if (!userProfile) {
       return res.status(404).json({ message: "User profile not found" });
     }
