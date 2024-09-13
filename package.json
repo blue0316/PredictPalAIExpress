@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "run": "node server.js",
+    "start": "npm install pg && nodemon server.js",
+    "run": "npm install pg && node server.js",
     "model:generate": "npx sequelize-cli model:generate --name",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:migrate:undo": "npx sequelize-cli db:migrate:undo",
