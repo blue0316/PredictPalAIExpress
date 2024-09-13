@@ -24,20 +24,10 @@ exports.createPaymentMethod = async (req, res) => {
 // Get all PaymentMethods
 exports.getAllPaymentMethods = async (req, res) => {
   try {
-    const { keyword = "", page = 1, limit = 10 } = req.query;
+    const { page = 1, limit = 10 } = req.query;
     const offset = (page - 1) * limit;
 
-    const condition = keyword
-      ? {
-          [Op.or]: [
-            { Type: { [Op.like]: `%${keyword}%` } },
-            { Number: { [Op.like]: `%${keyword}%` } },
-          ],
-        }
-      : null;
-
     const paymentMethods = await PaymentMethods.findAndCountAll({
-      where: condition,
       limit: limit,
       offset: offset,
       distinct: true,
