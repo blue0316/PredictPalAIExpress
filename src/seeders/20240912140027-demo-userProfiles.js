@@ -11,7 +11,7 @@ module.exports = {
       const cities = City.getCitiesOfCountry(country.isoCode);
       const city =
         cities.length > 0 ? faker.helpers.arrayElement(cities) : null;
-        
+
       fakeUserProfiles.push({
         User_ID: faker.string.uuid(),
         Name: faker.person.fullName(),
@@ -23,6 +23,7 @@ module.exports = {
         Address: faker.location.streetAddress(),
         PostalCode: faker.location.zipCode(),
         Bio: faker.lorem.paragraphs(2),
+        Avatar: faker.image.urlPicsumPhotos(),
         Setting: JSON.stringify({
           theme: faker.helpers.arrayElement(["light", "dark"]),
           rtl: false,

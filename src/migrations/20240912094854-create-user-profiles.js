@@ -45,6 +45,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
+      Avatar: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       Bio: {
         type: Sequelize.TEXT,
         allowNull: true,

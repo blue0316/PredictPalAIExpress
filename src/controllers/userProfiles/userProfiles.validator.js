@@ -11,6 +11,7 @@ const createUserProfileSchema = Joi.object({
   Address: Joi.string().optional(),
   PostalCode: Joi.string().optional(),
   Bio: Joi.string().optional(),
+  Avatar: Joi.string().optional(),
   Setting: Joi.object().optional(),
 });
 
@@ -25,6 +26,7 @@ const updateUserProfileSchema = Joi.object({
   Address: Joi.string().optional(),
   PostalCode: Joi.string().optional(),
   Bio: Joi.string().optional(),
+  Avatar: Joi.string().optional(),
   Setting: Joi.object().optional(),
 });
 
