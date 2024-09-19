@@ -14,6 +14,19 @@ exports.createUserProfile = async (req, res) => {
       return res.status(400).json({ message: error.details[0].message });
     }
 
+    const { User_ID, Email } = req.body;
+
+    const existingProfile = await UserProfiles.findOne({
+      where: {
+        [Op.or]: [{ User_ID }, { Email }],
+      },
+    });
+
+    if (existingProfile) {
+      console.log("User profile already exists");
+      return successResponse(req, res, existingProfile, 200);
+    }
+
     const userProfile = await UserProfiles.create(req.body);
     return successResponse(req, res, userProfile, 201);
   } catch (err) {

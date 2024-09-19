@@ -30,11 +30,11 @@ module.exports = {
         allowNull: true,
       },
       Country: {
-        type: Sequelize.STRING,
+        type: Sequelize.JSON,
         allowNull: true,
       },
       City: {
-        type: Sequelize.STRING,
+        type: Sequelize.JSON,
         allowNull: true,
       },
       Address: {
