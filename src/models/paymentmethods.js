@@ -37,22 +37,41 @@ module.exports = (sequelize, DataTypes) => {
       Type: {
         allowNull: false,
         type: DataTypes.STRING,
+        validate: {
+          notEmpty: true,
+          // isIn: [['Credit Card', 'Debit Card', 'PayPal']],
+        },
       },
       Number: {
         allowNull: false,
         type: DataTypes.STRING,
+        validate: {
+          notEmpty: true,
+          isCreditCard: true,
+        },
       },
       CVV: {
         allowNull: true,
         type: DataTypes.INTEGER,
+        validate: {
+          isInt: true,
+          len: [3, 4],
+        },
       },
       ExpirationDate: {
         allowNull: true,
         type: DataTypes.DATE,
+        validate: {
+          isDate: true,
+          isAfter: new Date().toISOString().split("T")[0],
+        },
       },
       LastUsed: {
         allowNull: true,
         type: DataTypes.DATE,
+        validate: {
+          isDate: true,
+        },
       },
     },
     {

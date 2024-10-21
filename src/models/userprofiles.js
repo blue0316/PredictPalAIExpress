@@ -2,20 +2,21 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class UserProfiles extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
       UserProfiles.hasMany(models.PaymentMethods, {
         foreignKey: "User_ID",
         sourceKey: "User_ID",
         as: "PaymentMethods",
       });
+
+      UserProfiles.hasMany(models.Videos, {
+        foreignKey: "User_ID",
+        sourceKey: "User_ID",
+        as: "Videos",
+      });
     }
   }
+
   UserProfiles.init(
     {
       User_ID: {
@@ -27,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
       Name: {
         type: DataTypes.STRING,
         allowNull: true,
+        validate: {
+          len: [0, 255],
+        },
       },
       Phone: {
         type: DataTypes.STRING,
@@ -38,11 +42,16 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: {
           isEmail: true,
+          notEmpty: true,
         },
       },
       DOB: {
         type: DataTypes.DATEONLY,
         allowNull: true,
+        validate: {
+          isDate: true,
+          isBefore: new Date().toISOString().split("T")[0],
+        },
       },
       Country: {
         type: DataTypes.JSON,
@@ -55,18 +64,30 @@ module.exports = (sequelize, DataTypes) => {
       Address: {
         type: DataTypes.STRING,
         allowNull: true,
+        validate: {
+          len: [0, 255],
+        },
       },
       PostalCode: {
         type: DataTypes.STRING,
         allowNull: true,
+        validate: {
+          isAlphanumeric: true,
+        },
       },
       Avatar: {
         type: DataTypes.STRING,
         allowNull: true,
+        validate: {
+          isUrl: true,
+        },
       },
       Bio: {
         type: DataTypes.TEXT,
         allowNull: true,
+        validate: {
+          len: [0, 1000],
+        },
       },
       Setting: {
         type: DataTypes.JSON,
@@ -78,5 +99,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "UserProfiles",
     }
   );
+
   return UserProfiles;
 };
